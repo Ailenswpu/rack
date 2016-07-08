@@ -334,22 +334,23 @@ module Rack
         name.force_encoding(encoding)
 
         return if filename
+        encoding = Encoding::UTF_8
 
-        if content_type
-          list         = content_type.split(';')
-          type_subtype = list.first
-          type_subtype.strip!
-          if TEXT_PLAIN == type_subtype
-            rest         = list.drop 1
-            rest.each do |param|
-              k,v = param.split('=', 2)
-              k.strip!
-              v.strip!
-              v = v[1..-2] if v[0] == '"' && v[-1] == '"'
-              encoding = Encoding.find v if k == CHARSET
-            end
-          end
-        end
+        # if content_type
+        #   list         = content_type.split(';')
+        #   type_subtype = list.first
+        #   type_subtype.strip!
+        #   if TEXT_PLAIN == type_subtype
+        #     rest         = list.drop 1
+        #     rest.each do |param|
+        #       k,v = param.split('=', 2)
+        #       k.strip!
+        #       v.strip!
+        #       v = v[1..-2] if v[0] == '"' && v[-1] == '"'
+        #       encoding = Encoding.find v if k == CHARSET
+        #     end
+        #   end
+        # end
 
         name.force_encoding(encoding)
         body.force_encoding(encoding)
